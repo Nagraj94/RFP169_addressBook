@@ -6,10 +6,10 @@ import java.util.Scanner;
 public class AddressBook {
 
     ArrayList<Contact> list = new ArrayList<>();
+    Scanner sc = new Scanner(System.in);
 
     public void createContact(){
 
-        Scanner sc = new Scanner(System.in);
         System.out.println("Enter firstname");
         String firstName = sc.next();
         System.out.println("Enter firstname");
@@ -29,5 +29,19 @@ public class AddressBook {
 
         Contact contact = new Contact(firstName,lastName, address, city, state, zip, phoneNo,email);
         list.add(contact);
+    }
+    public void edit(){
+        System.out.println("Enter firstname");
+        String firstName = sc.next();
+        System.out.println("Enter firstname");
+        String lastName = sc.next();
+
+        for (Contact contact : list) {
+            if (contact.firstName.equals(firstName) && contact.lastName.equals(lastName))
+                contact.editExistingContact();
+            else
+                System.out.println("Not Found....!");
+        }
+
     }
 }
