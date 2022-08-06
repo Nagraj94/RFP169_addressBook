@@ -44,4 +44,18 @@ public class AddressBook {
         }
 
     }
+    public void delete(){
+        System.out.println("Enter firstname");
+        String firstName = sc.next();
+        System.out.println("Enter firstname");
+        String lastName = sc.next();
+
+        for (Contact contact : list) {
+            if (contact.firstName.equals(firstName) && contact.lastName.equals(lastName))
+                list.remove(contact);
+            else
+                System.out.println("Not Found....!");
+        }
+
+    }
 }
