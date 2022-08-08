@@ -102,7 +102,7 @@ public class AddressBook {
         switch (option) {
             case 1:
                 System.out.println("Enter address book name");
-                addressBookName = sc.next().toLowerCase();
+                addressBookName = sc.next();
                 if (map.containsKey(addressBookName)) {
                     System.out.println("\nAddress book already exist\n");
                     chooseAddressBook();
@@ -115,7 +115,7 @@ public class AddressBook {
                 break;
             case 2:
                 System.out.println("Enter address book name");
-                addressBookName = sc.next().toLowerCase();
+                addressBookName = sc.next();
                 if (!map.containsKey(addressBookName)) {
                     System.out.println("\nAddressBook not Found\n");
                     chooseAddressBook();
