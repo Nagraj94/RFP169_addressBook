@@ -17,8 +17,9 @@ public class AddressBookMain {
                     "\n3.Delete contact" +
                     "\n4.Add multiple contact" +
                     "\n5.Add new addressbook or Select addressbook" +
-                    "\n6.Show contact" +
-                    "\n7.Exit");
+                    "\n6.Search by contact by city or state"+
+                    "\n7.Show contact" +
+                    "\n8.Exit");
             int check = sc.nextInt();
             if (check == 1) {
                 try{
@@ -26,7 +27,6 @@ public class AddressBookMain {
                 }catch (Exception e){
                     System.out.println("No Addressbook found");
                 }
-
             } else if (check == 2) {
                 contact1.edit();
             } else if (check == 3) {
@@ -36,8 +36,10 @@ public class AddressBookMain {
             } else if (check == 5) {
                 contact1.chooseAddressBook();
             } else if (check == 6) {
-                contact1.showContacts(AddressBook.list);
+                contact1.searchContact();
             } else if (check == 7) {
+                contact1.showContacts(AddressBook.list);
+            } else if (check == 8) {
                 exit = true;
             }
 

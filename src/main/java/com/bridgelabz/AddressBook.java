@@ -73,7 +73,7 @@ public class AddressBook {
         for (int i=0;i<num;i++) {
             System.out.println("Enter firstname");
             String firstName = sc.next();
-            System.out.println("Enter firstname");
+            System.out.println("Enter lastname");
             String lastName = sc.next();
             System.out.println("Enter address");
             String address = sc.next();
@@ -102,7 +102,7 @@ public class AddressBook {
         switch (option) {
             case 1:
                 System.out.println("Enter address book name");
-                addressBookName = sc.next().toLowerCase();
+                addressBookName = sc.next();
                 if (map.containsKey(addressBookName)) {
                     System.out.println("\nAddress book already exist\n");
                     chooseAddressBook();
@@ -115,7 +115,7 @@ public class AddressBook {
                 break;
             case 2:
                 System.out.println("Enter address book name");
-                addressBookName = sc.next().toLowerCase();
+                addressBookName = sc.next();
                 if (!map.containsKey(addressBookName)) {
                     System.out.println("\nAddressBook not Found\n");
                     chooseAddressBook();
@@ -126,6 +126,55 @@ public class AddressBook {
                 break;
         }
     }
+
+    public void searchContact(){
+        if (list.isEmpty()){
+            System.out.println("list is empty....!");
+            return;
+        }
+        boolean exit = false;
+        while (!exit){
+            System.out.println("1.Search contact by city\n2.Search by state");
+            int check = sc.nextInt();
+            if (check == 1){
+                System.out.println("enter city: ");
+                String city = sc.next();
+                searchByCity(city);
+            } else if (check == 2) {
+                System.out.println("enter state: ");
+                String state = sc.next();
+                searchByState(state);
+            } else if (check == 3) {
+                System.out.println("enter city or state ");
+                String opt = sc.next();
+                searchByCityState(opt,opt);
+            } else
+                exit = true;
+        }
+
+    }
+    public void searchByCityState(String city, String  state){
+        for (Contact contact : list){
+            if (contact.getCity().contains(city) || contact.getState().contains(state)){
+                System.out.println(contact);
+            }
+        }
+    }
+
+    public void searchByCity(String city){
+        for (Contact contact : list){
+            if (contact.getCity().contains(city)){
+                System.out.println(contact);
+            }
+        }
+    }
+    public void searchByState(String state){
+        for (Contact contact: list){
+            if (contact.getState().contains(state)){
+                System.out.println(contact);
+            }
+        }
+    }
     public void showContacts(ArrayList addressBook){
         System.out.println("Contacts: ");
         for (Object p : addressBook) {
@@ -133,5 +182,6 @@ public class AddressBook {
             System.out.println(contact);
         }
     }
+
 
 }
