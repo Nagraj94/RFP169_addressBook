@@ -1,12 +1,13 @@
 package com.bridgelabz;
 
+import java.io.IOException;
 import java.util.Scanner;
 
 import static com.bridgelabz.AddressBook.*;
 
 public class AddressBookMain {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         Scanner sc = new Scanner(System.in);
         AddressBook contact1 = new AddressBook();
 
@@ -38,7 +39,7 @@ public class AddressBookMain {
             } else if (check == 6) {
                 contact1.searchContact();
             } else if (check == 7) {
-                contact1.showContacts(AddressBook.list);
+                contact1.displayContact();
             } else if (check == 8) {
                 exit = true;
             }

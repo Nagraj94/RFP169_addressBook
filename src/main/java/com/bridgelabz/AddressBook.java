@@ -1,5 +1,7 @@
 package com.bridgelabz;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Scanner;
 
@@ -9,9 +11,9 @@ public class AddressBook {
     static ArrayList<Contact> list = new ArrayList<>();
     static Scanner sc = new Scanner(System.in);
     static String currentAddressBookName;
-    private static String addressBookName;
+    public static String addressBookName;
 
-    public void createContact(){
+    public void createContact() throws IOException {
         System.out.println("Enter firstname");
         String firstName = sc.next();
         System.out.println("Enter lastname");
@@ -38,6 +40,7 @@ public class AddressBook {
         System.out.println("Enter email");
         contact.setEmail(sc.next());
         list.add(contact);
+        writeData();
     }
     public void edit(){
         System.out.println("Enter firstname");
@@ -181,6 +184,22 @@ public class AddressBook {
             Contact contact = (Contact) p;
             System.out.println(contact);
         }
+    }
+    void writeData() throws IOException{
+        FileIO fileIO = new FileIO();
+        fileIO.writeFile();
+    }
+    void readData() throws IOException{
+        FileIO fileIO = new FileIO();
+        fileIO.readFile();
+    }
+    void displayContact() throws IOException {
+        if (list.isEmpty()) {
+            System.out.println("No contacts in the addressBook");
+            return;
+        }
+        list.sort(Comparator.comparing(Contact::getFirstName));
+        readData();
     }
 
 
