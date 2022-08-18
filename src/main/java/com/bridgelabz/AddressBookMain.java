@@ -39,11 +39,10 @@ public class AddressBookMain {
             } else if (check == 6) {
                 contact1.searchContact();
             } else if (check == 7) {
-                contact1.displayContact();
+                contact1.showContacts();
             } else if (check == 8) {
                 exit = true;
             }
-
         }
     }
 }
