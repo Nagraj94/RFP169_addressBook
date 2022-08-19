@@ -182,13 +182,13 @@ public class AddressBook {
             }
         }
     }
-    public void showContacts(){
-        if(list.isEmpty()){
+    public void showContacts() {
+        if (list.isEmpty()) {
             System.out.println("No contacts to display");
             return;
         }
         boolean exit = false;
-        while(!exit) {
+        while (!exit) {
             System.out.println("""
                     Enter option
                     1) To view by City
@@ -196,32 +196,33 @@ public class AddressBook {
                     3) To exit
                     """);
             int option = sc.nextInt();
-            if (option == 1){
+            if (option == 1) {
                 System.out.println("Enter the city name to view");
                 String city = sc.next().toLowerCase();
                 for (AddressBook addressBook : AddressBook.map.values()) {
                     for (Contact contact : addressBook.list) {
                         if (contact.getCity().toLowerCase().contains(city)) {
                             cityDictionary.put(contact, city);
-                    }
-                }
-            }
-            System.out.println("Contacts in city " + city + " are:");
-            System.out.println(cityDictionary.keySet());
-            } else if (option == 2) {
-                    System.out.println("Enter the state name to view");
-                    String state = sc.next().toLowerCase();
-                    for (AddressBook addressBooks : AddressBook.map.values()) {
-                        for (Contact contact : addressBooks.list) {
-                            if (contact.getState().toLowerCase().contains(state)) {
-                                stateDictionary.put(contact, state);
-                            }
                         }
                     }
-                    System.out.println("Contacts in state " + state + " are:");
-                    System.out.println(stateDictionary.keySet());
                 }
-            else {
+                System.out.println("No of contacts in city " + city + " are " + cityDictionary.size());
+                System.out.println("Contacts in city " + city + " are:");
+                System.out.println(cityDictionary.keySet());
+            } else if (option == 2) {
+                System.out.println("Enter the state name to view");
+                String state = sc.next().toLowerCase();
+                for (AddressBook addressBooks : AddressBook.map.values()) {
+                    for (Contact contact : addressBooks.list) {
+                        if (contact.getState().toLowerCase().contains(state)) {
+                            stateDictionary.put(contact, state);
+                        }
+                    }
+                }
+                System.out.println("No of contacts in state " + state + " are " + stateDictionary.size());
+                System.out.println("Contacts in state " + state + " are:");
+                System.out.println(stateDictionary.keySet());
+            } else {
                 exit = true;
             }
 
