@@ -41,7 +41,7 @@ public class AddressBook {
         System.out.println("Enter email");
         contact.setEmail(sc.next());
         list.add(contact);
-        writeData();
+
     }
     public void edit(){
         System.out.println("Enter firstname");
@@ -131,7 +131,7 @@ public class AddressBook {
         }
     }
     void writeAddressBook(ArrayList<Contact> arrayList,String addressBookName) throws IOException {
-        System.out.println("Enter\n 1) To write to txt file\n 2) To write to CSV file");
+        System.out.println("Enter\n 1) To write to txt file\n 2) To write to CSV file\n 3) To write to Json File");
         int option = sc.nextInt();
         switch (option){
             case 1:
@@ -140,12 +140,15 @@ public class AddressBook {
             case 2:
                 FileReaderWriter.writeCSV(arrayList, addressBookName);
                 break;
+            case 3:
+                FileReaderWriter.writeJson(arrayList, addressBookName);
+                break;
         }
 
     }
 
     void readAddressBook(String addressBookName) throws IOException {
-        System.out.println("Select option \n1.read from text file \n2.read from csv file");
+        System.out.println("Select option \n1.read from text file \n2.read from csv file\n 3) To Read from Json File");
         int option = sc.nextInt();
         switch (option) {
             case 1:
@@ -153,6 +156,9 @@ public class AddressBook {
                 break;
             case 2:
                 FileReaderWriter.readCSVFile(new File(FileReaderWriter.PATH.concat( addressBookName +".csv")));
+                break;
+            case 3:
+                FileReaderWriter.readCSVJsonFile(new File(FileReaderWriter.PATH.concat( addressBookName +".json")));
                 break;
         }
     }
@@ -285,21 +291,14 @@ public class AddressBook {
         list.sort(Comparator.comparing(Contact::getZip));
         list.forEach(System.out::println);
     }
-    void writeData() throws IOException{
-        FileIO fileIO = new FileIO();
-        fileIO.writeFile();
-    }
-    void readData() throws IOException{
-        FileIO fileIO = new FileIO();
-        fileIO.readFile();
-    }
+
     void displayContact() throws IOException {
         if (list.isEmpty()) {
             System.out.println("No contacts in the addressBook");
             return;
         }
         list.sort(Comparator.comparing(Contact::getFirstName));
-        readData();
+        list.forEach(System.out::println);
     }
 
 }
