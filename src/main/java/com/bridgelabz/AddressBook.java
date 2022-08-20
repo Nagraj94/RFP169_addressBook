@@ -1,9 +1,8 @@
 package com.bridgelabz;
+import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.Scanner;
+import java.util.*;
+import java.util.stream.Collectors;
 
 
 public class AddressBook {
@@ -12,6 +11,8 @@ public class AddressBook {
     static Scanner sc = new Scanner(System.in);
     static String currentAddressBookName;
     public static String addressBookName;
+
+    private static final String PATH = "C:\\Users\\admin\\IdeaProjects\\RFP169_addressBook\\src\\main\\resources";
 
     public void createContact() throws IOException {
         System.out.println("Enter firstname");
@@ -129,6 +130,33 @@ public class AddressBook {
                 break;
         }
     }
+    void writeAddressBook(ArrayList<Contact> arrayList,String addressBookName) throws IOException {
+        System.out.println("Enter\n 1) To write to txt file\n 2) To write to CSV file");
+        int option = sc.nextInt();
+        switch (option){
+            case 1:
+                FileReaderWriter.writeTxt(arrayList, addressBookName);
+                break;
+            case 2:
+                FileReaderWriter.writeCSV(arrayList, addressBookName);
+                break;
+        }
+
+    }
+
+    void readAddressBook(String addressBookName) throws IOException {
+        System.out.println("Select option \n1.read from text file \n2.read from csv file");
+        int option = sc.nextInt();
+        switch (option) {
+            case 1:
+                FileReaderWriter.readTxtFile(new File(FileReaderWriter.PATH.concat(addressBookName+".txt")));
+                break;
+            case 2:
+                FileReaderWriter.readCSVFile(new File(FileReaderWriter.PATH.concat( addressBookName +".csv")));
+                break;
+        }
+    }
+
 
     public void searchContact(){
         if (list.isEmpty()){
@@ -178,12 +206,84 @@ public class AddressBook {
             }
         }
     }
-    public void showContacts(ArrayList addressBook){
-        System.out.println("Contacts: ");
-        for (Object p : addressBook) {
-            Contact contact = (Contact) p;
-            System.out.println(contact);
+
+    public void showContacts() {
+        if (list.isEmpty()) {
+            System.out.println("No contacts to display");
+            return;
         }
+        boolean exit = false;
+        while (!exit) {
+            System.out.println("""
+                    Enter option
+                    1) To view by City
+                    2) To view by State
+                    3) To exit
+                    """);
+            int option = sc.nextInt();
+            if (option == 1) {
+                System.out.println("Enter the city name to view");
+                String city = sc.next().toLowerCase();
+                Map<String, List<Contact>> cityDictionary = new HashMap<>();
+                for (AddressBook addressBook : AddressBook.map.values()) {
+                    List<Contact> contactsCityList = addressBook.list.stream().filter(x -> x.getCity().toLowerCase().equals(city)).collect(Collectors.toList());
+                    if (cityDictionary.containsKey(city)) {
+                        cityDictionary.get(city).addAll(contactsCityList);
+                    } else
+                        cityDictionary.put(city, contactsCityList);
+
+                }
+                System.out.println("No of contacts in city " + city + " are " + cityDictionary.size());
+                System.out.println("Contacts in city " + city + " are:");
+                System.out.println(cityDictionary.keySet());
+            } else if (option == 2) {
+                System.out.println("Enter the state name to view");
+                String state = sc.next().toLowerCase();
+                Map<String, List<Contact>> stateDictionary = new HashMap<>();
+                for (AddressBook addressBook : AddressBook.map.values()) {
+                    List<Contact> contactsStateList = addressBook.list.stream().filter(x -> x.getState().toLowerCase().equals(state)).collect(Collectors.toList());
+                    if (stateDictionary.containsKey(state)) {
+
+                        stateDictionary.get(state).addAll(contactsStateList);
+                    } else
+                        stateDictionary.put(state, contactsStateList);
+                }
+
+                System.out.println("No of contacts in state " + state + " are " + stateDictionary.size());
+                System.out.println("Contacts in state " + state + " are:");
+                System.out.println(stateDictionary.keySet());
+            } else {
+                exit = true;
+            }
+
+        }
+    }
+
+    void sortByCity(){
+        if (list.isEmpty()) {
+            System.out.println("No contacts in the addressBook");
+            return;
+        }
+        list.sort(Comparator.comparing(Contact::getCity));
+        list.forEach(System.out::println);
+    }
+
+    void sortByState(){
+        if (list.isEmpty()) {
+            System.out.println("No contacts in the addressBook");
+            return;
+        }
+        list.sort(Comparator.comparing(Contact::getState));
+        list.forEach(System.out::println);
+    }
+
+    void sortByZipCode(){
+        if (list.isEmpty()) {
+            System.out.println("No contacts in the addressBook");
+            return;
+        }
+        list.sort(Comparator.comparing(Contact::getZip));
+        list.forEach(System.out::println);
     }
     void writeData() throws IOException{
         FileIO fileIO = new FileIO();
@@ -201,6 +301,5 @@ public class AddressBook {
         list.sort(Comparator.comparing(Contact::getFirstName));
         readData();
     }
-
 
 }

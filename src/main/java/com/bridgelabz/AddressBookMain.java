@@ -20,8 +20,11 @@ public class AddressBookMain {
                     "\n5.Add new addressbook or Select addressbook" +
                     "\n6.Search by contact by city or state"+
                     "\n7.Show contact" +
-                    "\n8.Exit");
+                    "\n8.Write addressBook to Files"+
+                    "\n9.Read addressBook from files"+
+                    "\n10.Exit");
             int check = sc.nextInt();
+
             if (check == 1) {
                 try{
                     map.get(currentAddressBookName).createContact();
@@ -29,18 +32,54 @@ public class AddressBookMain {
                     System.out.println("No Addressbook found");
                 }
             } else if (check == 2) {
-                contact1.edit();
+                try {
+                    map.get(currentAddressBookName).edit();
+                }catch (Exception e){
+                    System.out.println("No address book found");
+                }
             } else if (check == 3) {
-                contact1.delete();
+                try {
+                    map.get(currentAddressBookName).delete();
+                }catch (Exception e){
+                    System.out.println("No address book found");
+                }
             } else if (check == 4) {
-                contact1.addMultipleContact();
+                try {
+                    map.get(currentAddressBookName).addMultipleContact();
+                }catch (Exception e){
+                    System.out.println("create address book");
+                }
             } else if (check == 5) {
-                contact1.chooseAddressBook();
+                try {
+                    map.get(currentAddressBookName).chooseAddressBook();
+                }catch (Exception e){
+                    System.out.println("No address book found");
+                }
             } else if (check == 6) {
-                contact1.searchContact();
+                try {
+                    map.get(currentAddressBookName).searchContact();
+                }catch (Exception e){
+                    System.out.println("No contact found");
+                }
             } else if (check == 7) {
-                contact1.displayContact();
+                try {
+                    map.get(currentAddressBookName).showContacts();
+                }catch (Exception e){
+                    System.out.println("No contact to show");
+                }
             } else if (check == 8) {
+                try {
+                    map.get(currentAddressBookName).writeAddressBook(map.get(currentAddressBookName).list,currentAddressBookName);
+                } catch (IOException e) {
+                    System.out.println("Catch BLock");
+                }
+            } else if (check == 9) {
+                try {
+                    map.get(currentAddressBookName).readAddressBook(currentAddressBookName);
+                } catch (IOException e) {
+                    System.out.println("Catch BLock");
+                }
+            } else if (check == 10) {
                 exit = true;
             }
 
