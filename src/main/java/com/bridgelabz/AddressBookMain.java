@@ -42,6 +42,8 @@ public class AddressBookMain {
             } else if (check == 7) {
                 contact1.showContacts();
             } else if (check == 8) {
+                contact1.displayContact();
+            } else if (check == 9) {
                 exit = true;
             }
         }

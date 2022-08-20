@@ -228,5 +228,13 @@ public class AddressBook {
 
         }
     }
+    public void displayContact(){
+        if(list.isEmpty()){
+            System.out.println("No contacts to search in the addressBook");
+            return;
+        }
+        list.sort(Comparator.comparing(Contact::getFirstName));
+        list.forEach(System.out::println);
+    }
 
 }
